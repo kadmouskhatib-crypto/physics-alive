@@ -1,245 +1,52 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070b1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Physics Alive · Coulomb</title>
+<meta name="description" content="Physics Alive: discover physics laws yourself. Experience, predict, experiment, measure, discover, understand, apply, remember.">
+<title>Physics Alive</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
 <link rel="stylesheet" href="katex/katex.min.css">
-<script src="katex/katex.min.js"></script>
-<style>
-:root{
-  --bg:#070b1a; --bg2:#0e1530; --card:#121b3a; --line:#24305a; --text:#e8ecff; --muted:#9aa6d4;
-  --pos:#ff5470; --neg:#3fa9ff; --accent:#ffd166; --good:#3ddc97; --violet:#a78bfa;
-  --hl-yellow:#ffe066; --hl-green:#8ff0b5; --hl-pink:#ffa3c7;
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#1b2660 0%,transparent 60%),var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
-h1,h2,h3{font-family:var(--sans);line-height:1.15;margin:0 0 .5em;letter-spacing:-.01em}
-button{font:inherit;cursor:pointer}
-.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
-.topbar{position:sticky;top:0;z-index:50;background:rgba(7,11,26,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex;align-items:center;gap:8px;height:56px}
-.brand{font-weight:800;white-space:nowrap}
-.brand span{color:var(--accent)}
-.steps{display:flex;gap:5px;flex:1;justify-content:center}
-.steps button{width:26px;height:6px;border-radius:4px;background:var(--line);border:0;padding:0}
-.steps button.done{background:var(--good)} .steps button.now{background:var(--accent)}
-.tool{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:12px;height:38px;padding:0 10px;display:flex;align-items:center;gap:6px;white-space:nowrap}
-.tool.on{background:var(--accent);color:#1a1300;border-color:var(--accent)}
-.tool svg{width:18px;height:18px}
-.lang{font-weight:700;font-size:.85rem;min-width:44px;justify-content:center}
-@media(max-width:640px){.tool .lbl{display:none}.steps button{width:12px}.brand small{display:none}.steps{gap:3px}}
-section{padding:52px 0;border-bottom:1px solid #141c3d}
-.kicker{color:var(--accent);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
-.lead{color:var(--muted);font-size:1.06rem;max-width:62ch}
-.card{background:linear-gradient(180deg,var(--card),#0f1734);border:1px solid var(--line);border-radius:20px;padding:18px}
-.btn{border:0;border-radius:14px;padding:12px 18px;font-weight:700;background:var(--accent);color:#1a1300}
-.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
-.link{background:none;border:0;color:var(--accent);text-decoration:underline;padding:0;font-weight:600}
-.pill{display:inline-block;padding:2px 10px;border-radius:99px;background:#1a2550;color:var(--muted);font-size:.8rem}
-.hero{padding-top:26px}
-.hero h1{font-size:clamp(2rem,7vw,3.6rem)}
-.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--pos),var(--accent),var(--neg));-webkit-background-clip:text;background-clip:text;color:transparent}
-canvas{display:block;width:100%;touch-action:none;border:1px solid var(--line);border-radius:20px}
-#heroCanvas{height:340px;background:linear-gradient(180deg,#0c1433,#151d44 70%,#2a2140)}
-.hint{color:var(--muted);font-size:.9rem;margin-top:8px}
-.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
-.choice{padding:14px;border-radius:14px;border:1px solid var(--line);background:#0d1430;color:var(--text);text-align:left;font-weight:700;font-size:1.05rem}
-.choice.picked{box-shadow:0 0 0 2px var(--accent) inset}
-.feedback{margin-top:12px;min-height:1.5em;color:var(--muted)}
-.lab{display:grid;grid-template-columns:1fr 340px;gap:16px}
-@media(max-width:900px){.lab{grid-template-columns:1fr}}
-#lab{height:420px;background:#060a18}
-@media(max-width:640px){#lab{height:340px}}
-.readout{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px}
-.ro{background:#0b1230;border:1px solid var(--line);border-radius:12px;padding:8px 10px}
-.ro b{display:block;font-size:1.2rem}
-.ro small{color:var(--muted)}
-.ctrl{margin:10px 0}
-.ctrl label{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted)}
-.ctrl label b{color:var(--text)}
-input[type=range]{width:100%;accent-color:var(--accent);height:32px}
-select{width:100%;padding:10px;border-radius:12px;background:#0b1230;color:var(--text);border:1px solid var(--line);font:inherit}
-.toggles{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.toggles .tool{height:36px;font-size:.85rem}
-.live{overflow-x:auto;overflow-y:hidden;padding:8px;background:#0b1230;border-radius:12px;border:1px solid var(--line);margin-top:10px;font-size:.9rem;-webkit-overflow-scrolling:touch}
-#graph{height:150px;margin-top:10px;background:#0b1230;border-radius:12px}
-table{width:100%;border-collapse:collapse;font-size:.9rem}
-td,th{padding:6px 6px;border-bottom:1px solid var(--line);text-align:right}
-th{color:var(--muted);font-weight:500} td:first-child,th:first-child{text-align:left}
-.tscroll{overflow-x:auto}
-.discovery{margin-top:12px;padding:14px;border-radius:14px;background:linear-gradient(90deg,#2a2150,#14305a);border:1px solid var(--violet);display:none}
-#bigFormula{font-size:clamp(1.5rem,7vw,2.8rem);text-align:center;padding:22px 4px;overflow-x:auto}
-#bigFormula .piece{cursor:pointer;border-radius:8px;padding:0 3px;border-bottom:2px dashed var(--accent)}
-#bigFormula .piece.active{background:rgba(255,209,102,.25)}
-#pieceInfo{min-height:4.5em;padding:14px;border-radius:14px;background:#0b1230;border:1px solid var(--line)}
-.chal{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:14px;border:1px solid var(--line);background:#0d1430;margin-bottom:10px}
-.chal .tick{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);flex:none;display:grid;place-items:center;font-weight:700}
-.chal.ok{border-color:var(--good);background:#0f2b25}
-.chal.ok .tick{background:var(--good);border-color:var(--good);color:#04241a}
-.chal small{color:var(--muted)}
-.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.fcard{background:#0b1230;border:1px solid var(--line);border-radius:16px;padding:14px;min-width:0}
-.fcard .m{overflow-x:auto;overflow-y:hidden}
-.real{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.real div{padding:14px;border-radius:14px;background:#0d1430;border:1px solid var(--line)}
-.real b{display:block;margin-bottom:4px}
-.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-mark{border-radius:3px;padding:0 1px;color:#111}
-mark.y{background:var(--hl-yellow)} mark.g{background:var(--hl-green)} mark.p{background:var(--hl-pink)}
-body.hlmode .hl{outline:1px dashed rgba(255,209,102,.35);outline-offset:4px;border-radius:4px}
-#hlBar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:70;display:none;gap:8px;background:#111a3a;border:1px solid var(--accent);border-radius:99px;padding:8px 12px;box-shadow:0 10px 30px rgba(0,0,0,.5);align-items:center;max-width:calc(100% - 24px)}
-body.hlmode #hlBar{display:flex}
-.sw{width:30px;height:30px;border-radius:50%;border:2px solid transparent;flex:none}
-.sw.sel{border-color:#fff}
-.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:80;display:none;align-items:flex-end;justify-content:center}
-.backdrop.open{display:flex}
-.sheet{background:var(--bg2);border:1px solid var(--line);border-radius:22px 22px 0 0;width:min(720px,100%);max-height:88vh;overflow:auto;padding:20px;-webkit-overflow-scrolling:touch}
-@media(min-width:700px){.backdrop{align-items:center}.sheet{border-radius:22px}}
-.opt{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:12px;margin:6px 0}
-.opt input{width:20px;height:20px;accent-color:var(--accent)}
-.seg{display:flex;gap:8px}
-.seg button{flex:1;padding:12px;border-radius:12px;border:1px solid var(--line);background:#0b1230;color:var(--text)}
-.seg button.on{box-shadow:0 0 0 2px var(--accent) inset}
-.bookp{background:#f6f1e4;color:#2a2416;border-radius:12px;padding:12px 14px;margin:10px 0;font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;line-height:1.55}
-.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:var(--good);color:#04241a;padding:10px 16px;border-radius:12px;font-weight:700;z-index:90;opacity:0;transition:.3s;pointer-events:none;max-width:90%;text-align:center}
-.toast.show{opacity:1}
-#print{display:none}
-@media print{
-  body{background:#fff;color:#111}
-  body>*:not(#print){display:none!important}
-  #print{display:block;color:#111}
-  #print h1{font-size:1.4em;margin:0 0 .2em}
-  #print h2{font-size:1.1em;border-bottom:2px solid #111;padding-bottom:2px;margin-top:1em;break-after:avoid}
-  #print .pf{border:1px solid #bbb;border-radius:8px;padding:6px 10px;margin:6px 0;break-inside:avoid}
-  #print .pf .n{font-weight:700;font-size:.85em}
-  #print .pf .d{font-size:.8em;color:#444}
-  #print .ph{background:#fff3a6;padding:4px 8px;border-left:3px solid #e0b000;margin:4px 0;font-size:.9em}
-  #print .meta{font-size:.75em;color:#666}
-  #print ul{padding-left:1.1em;margin:.3em 0}
-}
-</style>
-<style id="pageSize"></style>
+<link rel="stylesheet" href="css/app.css">
+<script>try{const t=localStorage.getItem('pa_theme');if(t)document.documentElement.dataset.theme=JSON.parse(t)}catch(e){}</script>
+<script defer src="katex/katex.min.js"></script>
+<script defer src="js/i18n.js"></script>
+<script defer src="js/core.js"></script>
+<script defer src="lessons/coulomb.js"></script>
+<script defer src="js/boot.js"></script>
 </head>
 <body>
 
-<header class="topbar"><div class="wrap">
-  <div class="brand">Physics <span>Alive</span> <small style="color:var(--muted);font-weight:500">· Coulomb</small></div>
-  <nav class="steps" id="steps"></nav>
-  <button class="tool lang" id="langBtn">FR</button>
-  <button class="tool" id="bookBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg><span class="lbl" data-t="book"></span></button>
-  <button class="tool" id="hlBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l-6 6v3h3l6-6M22 5l-3-3-9 9 3 3z"/></svg><span class="lbl" data-t="hl"></span></button>
-  <button class="tool" id="pdfBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg><span class="lbl" data-t="pdf"></span></button>
+<header class="top"><div class="wrap">
+  <div class="brand"><i></i>Physics <span>Alive</span></div>
+  <div class="crumb" id="crumb"></div>
+  <div class="sp"></div>
+  <nav class="modes" role="tablist" id="modesTop"></nav>
+  <select class="ib" id="langSel" aria-label="Language"><option value="en">EN</option><option value="fr">FR</option><option value="ar">ع</option></select>
+  <button class="ib" id="themeBtn" aria-label="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  <button class="ib" id="hlBtn" aria-label="Highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l-6 6v3h3l6-6M22 5l-3-3-9 9 3 3z"/></svg></button>
 </div></header>
 
-<section class="hero" id="s0" data-step="0"><div class="wrap">
-  <div class="kicker" data-t="k0"></div>
-  <h1 data-t="h0"></h1>
-  <p class="lead hl" id="p0" data-t="p0"></p>
-  <canvas id="heroCanvas"></canvas>
-  <p class="hint" data-t="hint0"></p>
-</div></section>
+<main>
+  <div class="mode" id="m-learn"></div>
+  <div class="mode" id="m-textbook"></div>
+  <div class="mode" id="m-practice"></div>
+  <div class="mode" id="m-notebook"></div>
+</main>
 
-<section id="s1" data-step="1"><div class="wrap">
-  <div class="kicker" data-t="k1"></div><h2 data-t="h1"></h2>
-  <div class="card">
-    <p class="hl" id="p1" data-t="p1"></p>
-    <div class="choices">
-      <button class="choice" data-v="half">F ÷ 2</button><button class="choice" data-v="quarter">F ÷ 4</button>
-      <button class="choice" data-v="same" data-t="same"></button><button class="choice" data-v="double">F × 2</button>
-    </div>
-    <div class="feedback" id="predictFb"></div>
-  </div>
-</div></section>
-
-<section id="s2" data-step="2"><div class="wrap">
-  <div class="kicker" data-t="k2"></div><h2 data-t="h2"></h2>
-  <p class="lead hl" id="p2" data-t="p2"></p>
-  <div class="lab">
-    <div>
-      <canvas id="lab"></canvas>
-      <div class="toggles">
-        <button class="tool on" id="tLines" data-t="tLines"></button>
-        <button class="tool on" id="tFlow" data-t="tFlow"></button>
-        <button class="tool" id="tSnap" data-t="tSnap"></button>
-        <button class="tool" id="tReset" data-t="tReset"></button>
-        <button class="btn" id="recordBtn" style="margin-left:auto" data-t="record"></button>
-      </div>
-      <canvas id="graph"></canvas>
-      <div class="hint" data-t="graphHint"></div>
-    </div>
-    <div class="card">
-      <div class="readout">
-        <div class="ro"><small data-t="roR"></small><b id="roR">–</b></div>
-        <div class="ro"><small data-t="roF"></small><b id="roF">–</b></div>
-        <div class="ro"><small data-t="roT"></small><b id="roT">–</b></div>
-        <div class="ro"><small data-t="roE"></small><b id="roE">1</b></div>
-      </div>
-      <div class="ctrl"><label><span data-t="q1"></span> <b id="q1v"></b></label><input type="range" id="q1" min="-10" max="10" step="0.5" value="2"></div>
-      <div class="ctrl"><label><span data-t="q2"></span> <b id="q2v"></b></label><input type="range" id="q2" min="-10" max="10" step="0.5" value="-2"></div>
-      <div class="ctrl"><label data-t="medium"></label><select id="medium"></select></div>
-      <div class="live" id="live"></div>
-    </div>
-  </div>
-</div></section>
-
-<section id="s3" data-step="3"><div class="wrap">
-  <div class="kicker" data-t="k3"></div><h2 data-t="h3"></h2>
-  <p class="lead hl" id="p3" data-t="p3"></p>
-  <div class="card">
-    <div class="tscroll"><table><thead><tr><th>#</th><th>q₁q₂ (µC²)</th><th>r (cm)</th><th>F (N)</th><th>r × </th><th>F ÷</th></tr></thead><tbody id="rec"></tbody></table></div>
-    <div class="discovery" id="disc"></div>
-    <div class="row"><button class="btn ghost" id="clearRec" data-t="clear"></button><button class="btn ghost" data-go="s2" data-t="back"></button></div>
-  </div>
-</div></section>
-
-<section id="s4" data-step="4"><div class="wrap">
-  <div class="kicker" data-t="k4"></div><h2 data-t="h4"></h2>
-  <p class="lead hl" id="p4" data-t="p4"></p>
-  <div class="card"><div id="bigFormula"></div><div id="pieceInfo"></div></div>
-</div></section>
-
-<section id="s5" data-step="5"><div class="wrap">
-  <div class="kicker" data-t="k5"></div><h2 data-t="h5"></h2>
-  <p class="lead" data-t="p5"></p>
-  <div id="chals"></div><div class="feedback" id="chalScore"></div>
-</div></section>
-
-<section id="s6" data-step="6"><div class="wrap">
-  <div class="kicker" data-t="k6"></div><h2 data-t="h6"></h2>
-  <div class="sumgrid" id="sumFormulas"></div>
-  <div class="card" style="margin-top:14px">
-    <h3 data-t="five"></h3><ul id="sumList"></ul>
-    <h3 style="margin-top:16px" data-t="worked"></h3>
-    <p class="hl" id="p6ex" data-t="workedQ"></p>
-    <div class="live" id="worked"></div>
-    <p class="hint"><span data-t="ref"></span> <button class="link" data-open="book" data-t="openBook"></button></p>
-  </div>
-  <h3 style="margin-top:24px" data-t="realT"></h3>
-  <div class="real" id="real"></div>
-  <div class="row">
-    <button class="btn" data-open="pdf" data-t="pdf2"></button>
-    <button class="btn ghost" data-open="book" data-t="openBook"></button>
-    <button class="btn ghost" id="restart" data-t="restart"></button>
-  </div>
-</div></section>
+<nav class="bottomnav modes" role="tablist" id="modesBottom"></nav>
 
 <div id="hlBar">
-  <button class="sw sel" data-c="y" style="background:var(--hl-yellow)"></button>
-  <button class="sw" data-c="g" style="background:var(--hl-green)"></button>
-  <button class="sw" data-c="p" style="background:var(--hl-pink)"></button>
-  <span style="font-size:.8rem;color:var(--muted)" data-t="hlHelp"></span>
-  <button class="tool" id="hlDone" data-t="done"></button>
+  <button class="sw sel" data-c="y" style="background:var(--hl-y)" aria-label="yellow"></button>
+  <button class="sw" data-c="g" style="background:var(--hl-g)" aria-label="green"></button>
+  <button class="sw" data-c="p" style="background:var(--hl-p)" aria-label="pink"></button>
+  <span class="small muted" data-t="hlHelp"></span>
+  <button class="ib" id="hlDone" data-t="done"></button>
 </div>
-
-<div class="backdrop" id="bookDlg"><div class="sheet">
-  <h2 data-t="bookTitle"></h2><div class="pill" id="bookRef"></div>
-  <div id="bookBody"></div>
-  <div class="row"><button class="btn ghost" data-close="bookDlg" data-t="close"></button></div>
-</div></div>
 
 <div class="backdrop" id="exp"><div class="sheet">
   <h2 data-t="expT"></h2><p class="hint" style="margin-top:0" data-t="expHint"></p>
@@ -247,326 +54,16 @@ body.hlmode #hlBar{display:flex}
   <h3 data-t="include"></h3>
   <label class="opt"><input type="checkbox" id="incF" checked> <span data-t="incF"></span></label>
   <label class="opt"><input type="checkbox" id="incS" checked> <span data-t="incS"></span></label>
+  <label class="opt"><input type="checkbox" id="incR" checked> <span data-t="incR"></span></label>
   <label class="opt"><input type="checkbox" id="incH" checked> <span data-t="incH"></span></label>
+  <label class="opt"><input type="checkbox" id="incN" checked> <span data-t="incN"></span></label>
+  <label class="opt"><input type="checkbox" id="incW" checked> <span data-t="incW"></span></label>
   <h3 data-t="size"></h3>
   <div class="seg" id="sizeSeg"><button data-s="phone" class="on" data-t="phone"></button><button data-s="a4">📄 A4</button></div>
   <div class="row"><button class="btn" id="doPdf" style="flex:1" data-t="create"></button><button class="btn ghost" data-close="exp" data-t="close"></button></div>
 </div></div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div id="print"></div>
-
-<script>
-/* ===================== TEXT: English + French ===================== */
-const I={
-en:{book:'Book',hl:'Highlight',pdf:'Formulas PDF',k0:'Chapter 11 · Electrostatics · Lesson 1',
-h0:'The <em>invisible handshake</em> between charges',
-p0:'Rub a balloon on your hair, then bring it near tiny bits of paper. They jump up and stick to it, even though nothing touches them. <b>Try it below:</b> drag the balloon toward the paper.',
-hint0:'👆 Drag the balloon. Get close and the paper jumps. Move away and it falls back. What pulls it up?',
-k1:'Step 1 · Predict',h1:'Guess before you touch',
-p1:'Two small charges sit <b>10 cm</b> apart and push each other with some force <b>F</b>. You slide them apart to <b>20 cm</b>, twice the distance. What happens to the force?',
-same:'Stays F',fb0:"Pick one. You don't need to be right, you'll check it yourself in the lab.",
-fbR:'🎯 Strong guess! Now <button class="link" data-go="s2">go and prove it in the lab</button>.',
-fbO:'Interesting guess. Keep it in mind and <button class="link" data-go="s2">test it in the lab</button>. The charges will tell you the truth.',
-k2:'Step 2 · Play',h2:'The charge lab',
-p2:'Drag the charges with your finger. Change their size and sign. Watch the arrows: they show the force on each charge. Tap <b>📌 Record</b> to save a measurement.',
-tLines:'Field lines',tFlow:'Flow',tSnap:'Distance = 10 cm',tReset:'↺ Reset',record:'📌 Record',
-graphHint:'Graph: force F against distance r for your charges. The glowing dot is where you are now.',
-roR:'Distance r',roF:'Force F',roT:'Type',roE:'Medium εᵣ',q1:'Charge q₁',q2:'Charge q₂',medium:'Medium between them',
-media:['Vacuum / air (εᵣ = 1)','Teflon (εᵣ ≈ 2.1)','Glass (εᵣ ≈ 5)','Water (εᵣ ≈ 80)'],
-repel:'Repel ↔',attract:'Attract →←',none:'None',
-k3:'Step 3 · Notice',h3:'Your measurements',
-p3:'Record at 10 cm, then at 20 cm, then at 30 cm, keeping the same charges. Compare the force each time. Do you see a pattern?',
-noRec:'No records yet. Go back to the lab and tap 📌 Record.',clear:'Clear records',back:'↑ Back to lab',
-disc:(a,b)=>`🤯 <b>You discovered it!</b> Distance ×${a} → force ÷${b}. And ${a}² = ${(a*a).toFixed(1)}.<br>The force falls with the <b>square</b> of the distance: <b>F ∝ 1/r²</b>. This is the <i>inverse-square law</i>. <button class="link" data-go="s4">Build the formula →</button>`,
-tip:'💡 Tip: keep the <b>same charges</b> and only change the distance, so you can compare fairly.',
-k4:'Step 4 · Build the law',h4:"Now you've earned the formula",
-p4:"You found that the force grows with each charge and drops with the <b>square</b> of the distance. Put that into one line and you get Coulomb's Law. <b>Tap each part</b> to see what it means. The lab lights up the matching part.",
-tap:'👆 Tap a part of the formula (dashed underline).',glow:'✨ glowing in the lab now',
-pieces:{F:"The <b>force</b> on each charge, in newtons (N). Both charges feel the same size of force in opposite directions (Newton's 3rd law). Look at the two arrows in the lab.",
-k:"<b>Coulomb's constant</b>, k = 1/(4πε₀) ≈ 8.99×10⁹ N m² C⁻². It is huge, which is why even a few microcoulombs give a noticeable force.",
-q1:'<b>First charge</b> in coulombs (C). 1 µC = 10⁻⁶ C. Double it and the force doubles.',
-q2:'<b>Second charge</b>. If q₁q₂ &gt; 0 (same signs) they <b style="color:var(--pos)">repel</b>; if q₁q₂ &lt; 0 they <b style="color:var(--neg)">attract</b>.',
-r:'<b>Distance squared</b>, with r in metres. This is the part you discovered: 2× the distance gives ¼ of the force, and 3× gives 1/9.'},
-k5:'Step 5 · Prove it',h5:'Lab missions',p5:'Each mission is checked live from the lab. Go back up, play, and the ticks turn green.',
-missions:[['Make the charges attract each other.','Give them opposite signs.'],['Make the force exactly 0.90 N (±3%) in vacuum.','Try q₁ = q₂ = 1 µC and set the distance to 10 cm. Then find other combinations!'],['Drop the charges into water and see the force shrink by 80×.','Use the Medium menu.'],['Discover the inverse-square law from your own records.','Record at r, then at 2r with the same charges.'],['Make a repulsion of at least 5 N.','Large like charges, small distance.']],
-hint:'Hint',score:(n,t)=>`${n} / ${t} missions complete`,all:"🏆 <b>All missions done. You own Coulomb's Law.</b>",mDone:n=>`✅ Mission ${n} complete!`,
-k6:'Step 6 · Keep it',h6:'Summary card',five:'In 5 sentences',worked:'Worked example',
-workedQ:'Two charges, +3 µC and −2 µC, are 5 cm apart in air. Find the force.',attr:'attractive',
-ref:'Textbook: Physics 12, §11.1, pp. 3–6.',openBook:'📖 Read the original text',realT:'Where you meet it in real life',
-real:[['⚡ Lightning','Charges pile up in clouds until the pull to the ground is strong enough to rip through the air.'],['🖨️ Photocopiers',"Charged toner powder is pulled onto oppositely charged parts of a drum. That's how the image forms."],['⚛️ Atoms',"The same law holds electrons around the nucleus. It's about 10³⁹ times stronger than gravity."],['🧑 You',"You don't fall through your chair because the electrons in your body and in the chair repel each other."]],
-pdf2:'📄 Export formulas & summary to PDF',restart:'⟲ Restart lesson',restartQ:'Erase your progress, records, highlights and answers for this lesson?',
-hlHelp:'Select text · tap a mark to erase',done:'Done',hlOn:'🖍️ Select any text to highlight it',hlOk:'Highlighted ✓',
-bookTitle:'📖 Original textbook text',close:'Close',bookFail:'Could not load the book text. Check your connection and try again.',
-expT:'📄 My formula book',expHint:'Pick the lessons and what to include, then choose the page size. Your browser will ask you to <b>Save as PDF</b> (on iPhone: Share → Print → pinch out → Share → Save to Files).',
-lessons:'Lessons',include:'Include',incF:'Formulas with meaning',incS:'Summaries',incH:'My highlights',size:'Page size',phone:'📱 Phone',create:'Create PDF',pick:'Pick at least one lesson',
-fbook:'My Formula Book',summary:'Summary',myhl:'My highlights',
-snap:'Distance set to 10 cm',reset:'Lab reset',rec:(n,r,f)=>`📌 Recorded #${n}: r = ${r} cm, F = ${f} N`,
-dragB:'Drag the balloon ↓',stuck:'Paper bits stuck',mediumTxt:e=>`Medium εᵣ = ${e} → force ÷ ${e}`,zero:'One charge is zero → no force at any distance.'},
-
-fr:{book:'Livre',hl:'Surligner',pdf:'Formules PDF',k0:'Chapitre 11 · Électrostatique · Leçon 1',
-h0:'La <em>poignée de main invisible</em> entre les charges',
-p0:'Frotte un ballon sur tes cheveux, puis approche-le de petits morceaux de papier. Ils sautent et se collent au ballon, sans que rien ne les touche. <b>Essaie ci-dessous :</b> fais glisser le ballon vers le papier.',
-hint0:'👆 Fais glisser le ballon. Approche-toi : le papier saute. Éloigne-toi : il retombe. Qu’est-ce qui le soulève ?',
-k1:'Étape 1 · Prédire',h1:'Devine avant de toucher',
-p1:'Deux petites charges sont à <b>10 cm</b> l’une de l’autre et se repoussent avec une force <b>F</b>. Tu les écartes à <b>20 cm</b>, deux fois plus loin. Que devient la force ?',
-same:'Reste F',fb0:'Choisis une réponse. Pas besoin d’avoir raison, tu vérifieras toi-même au labo.',
-fbR:'🎯 Bonne intuition ! <button class="link" data-go="s2">Va la prouver au labo</button>.',
-fbO:'Intéressant. Garde-le en tête et <button class="link" data-go="s2">teste-le au labo</button>. Les charges te diront la vérité.',
-k2:'Étape 2 · Jouer',h2:'Le labo des charges',
-p2:'Déplace les charges avec ton doigt. Change leur valeur et leur signe. Observe les flèches : elles montrent la force sur chaque charge. Touche <b>📌 Mesurer</b> pour enregistrer.',
-tLines:'Lignes de champ',tFlow:'Flux',tSnap:'Distance = 10 cm',tReset:'↺ Réinitialiser',record:'📌 Mesurer',
-graphHint:'Graphique : force F en fonction de la distance r pour tes charges. Le point lumineux, c’est toi maintenant.',
-roR:'Distance r',roF:'Force F',roT:'Type',roE:'Milieu εᵣ',q1:'Charge q₁',q2:'Charge q₂',medium:'Milieu entre les charges',
-media:['Vide / air (εᵣ = 1)','Téflon (εᵣ ≈ 2,1)','Verre (εᵣ ≈ 5)','Eau (εᵣ ≈ 80)'],
-repel:'Répulsion ↔',attract:'Attraction →←',none:'Aucune',
-k3:'Étape 3 · Observer',h3:'Tes mesures',
-p3:'Mesure à 10 cm, puis à 20 cm, puis à 30 cm, avec les mêmes charges. Compare la force à chaque fois. Vois-tu une règle ?',
-noRec:'Aucune mesure. Retourne au labo et touche 📌 Mesurer.',clear:'Effacer les mesures',back:'↑ Retour au labo',
-disc:(a,b)=>`🤯 <b>Tu l’as découvert !</b> Distance ×${a} → force ÷${b}. Et ${a}² = ${(a*a).toFixed(1)}.<br>La force diminue avec le <b>carré</b> de la distance : <b>F ∝ 1/r²</b>. C’est la <i>loi en inverse du carré</i>. <button class="link" data-go="s4">Construire la formule →</button>`,
-tip:'💡 Astuce : garde les <b>mêmes charges</b> et ne change que la distance, pour comparer honnêtement.',
-k4:'Étape 4 · Construire la loi',h4:'Tu as mérité la formule',
-p4:'Tu as vu que la force augmente avec chaque charge et diminue avec le <b>carré</b> de la distance. En une ligne, c’est la loi de Coulomb. <b>Touche chaque partie</b> pour voir ce qu’elle signifie : le labo l’éclaire.',
-tap:'👆 Touche une partie de la formule (soulignée en pointillé).',glow:'✨ elle brille dans le labo',
-pieces:{F:'La <b>force</b> sur chaque charge, en newtons (N). Les deux charges subissent la même force, en sens opposés (3ᵉ loi de Newton). Regarde les deux flèches.',
-k:'<b>Constante de Coulomb</b>, k = 1/(4πε₀) ≈ 8,99×10⁹ N m² C⁻². Elle est énorme : quelques microcoulombs suffisent pour une force visible.',
-q1:'<b>Première charge</b> en coulombs (C). 1 µC = 10⁻⁶ C. Double-la : la force double.',
-q2:'<b>Deuxième charge</b>. Si q₁q₂ &gt; 0 (même signe) elles se <b style="color:var(--pos)">repoussent</b> ; si q₁q₂ &lt; 0 elles s’<b style="color:var(--neg)">attirent</b>.',
-r:'<b>Distance au carré</b>, r en mètres. C’est ce que tu as découvert : distance ×2 → force ÷4 ; ×3 → ÷9.'},
-k5:'Étape 5 · Prouver',h5:'Missions du labo',p5:'Chaque mission est vérifiée en direct depuis le labo. Remonte, joue, et les cases deviennent vertes.',
-missions:[['Fais en sorte que les charges s’attirent.','Donne-leur des signes opposés.'],['Obtiens une force de 0,90 N exactement (±3 %) dans le vide.','Essaie q₁ = q₂ = 1 µC et une distance de 10 cm. Puis trouve d’autres combinaisons !'],['Plonge les charges dans l’eau et vois la force divisée par 80.','Utilise le menu Milieu.'],['Découvre la loi en inverse du carré avec tes propres mesures.','Mesure à r, puis à 2r avec les mêmes charges.'],['Crée une répulsion d’au moins 5 N.','Grandes charges de même signe, petite distance.']],
-hint:'Indice',score:(n,t)=>`${n} / ${t} missions réussies`,all:'🏆 <b>Toutes les missions sont réussies. Tu maîtrises la loi de Coulomb.</b>',mDone:n=>`✅ Mission ${n} réussie !`,
-k6:'Étape 6 · Retenir',h6:'Fiche résumé',five:'En 5 phrases',worked:'Exemple résolu',
-workedQ:'Deux charges, +3 µC et −2 µC, sont à 5 cm l’une de l’autre dans l’air. Calcule la force.',attr:'attractive',
-ref:'Manuel : Physique 12, §11.1, p. 3–6.',openBook:'📖 Lire le texte original',realT:'Où la rencontres-tu dans la vie ?',
-real:[['⚡ La foudre','Les charges s’accumulent dans les nuages jusqu’à ce que l’attraction vers le sol soit assez forte pour traverser l’air.'],['🖨️ Photocopieuses','La poudre de toner chargée est attirée par les zones de charge opposée d’un tambour : c’est ainsi que l’image se forme.'],['⚛️ Les atomes','La même loi retient les électrons autour du noyau. Elle est environ 10³⁹ fois plus forte que la gravité.'],['🧑 Toi','Tu ne traverses pas ta chaise parce que les électrons de ton corps et ceux de la chaise se repoussent.']],
-pdf2:'📄 Exporter formules et résumé en PDF',restart:'⟲ Recommencer la leçon',restartQ:'Effacer ta progression, tes mesures, tes surlignages et tes réponses pour cette leçon ?',
-hlHelp:'Sélectionne du texte · touche une marque pour l’effacer',done:'Terminé',hlOn:'🖍️ Sélectionne un texte pour le surligner',hlOk:'Surligné ✓',
-bookTitle:'📖 Texte original du manuel',close:'Fermer',bookFail:'Impossible de charger le texte du manuel. Vérifie ta connexion et réessaie.',
-expT:'📄 Mon carnet de formules',expHint:'Choisis les leçons et le contenu, puis la taille de page. Ton navigateur proposera <b>Enregistrer en PDF</b> (sur iPhone : Partager → Imprimer → écarter deux doigts → Partager → Enregistrer dans Fichiers).',
-lessons:'Leçons',include:'Inclure',incF:'Formules expliquées',incS:'Résumés',incH:'Mes surlignages',size:'Taille de page',phone:'📱 Téléphone',create:'Créer le PDF',pick:'Choisis au moins une leçon',
-fbook:'Mon carnet de formules',summary:'Résumé',myhl:'Mes surlignages',
-snap:'Distance réglée à 10 cm',reset:'Labo réinitialisé',rec:(n,r,f)=>`📌 Mesure n°${n} : r = ${r} cm, F = ${f} N`,
-dragB:'Fais glisser le ballon ↓',stuck:'Papiers collés',mediumTxt:e=>`Milieu εᵣ = ${e} → force ÷ ${e}`,zero:'Une charge est nulle → aucune force, quelle que soit la distance.'}
-};
-
-/* ===================== ALL LESSONS' FORMULAS (extend later for the whole book) ===================== */
-const LESSONS=[
- {id:'coulomb',ref:'§11.1',title:{en:"Coulomb's Law",fr:'Loi de Coulomb'},formulas:[
-  {n:{en:"Coulomb's Law",fr:'Loi de Coulomb'},t:"F = k\\,\\dfrac{q_1 q_2}{r^2}",d:{en:'Force between two point charges q₁, q₂ that are r apart.',fr:'Force entre deux charges ponctuelles q₁ et q₂ séparées de r.'}},
-  {n:{en:'Coulomb constant',fr:'Constante de Coulomb'},t:"k=\\dfrac{1}{4\\pi\\varepsilon_0}\\approx 8.99\\times10^{9}\\ \\mathrm{N\\,m^2\\,C^{-2}}",d:{en:'ε₀ = 8.85×10⁻¹² C² N⁻¹ m⁻²',fr:'ε₀ = 8,85×10⁻¹² C² N⁻¹ m⁻²'}},
-  {n:{en:'In a medium',fr:'Dans un milieu'},t:"F_{med}=\\dfrac{F}{\\varepsilon_r}",d:{en:'The medium weakens the force by its relative permittivity εᵣ.',fr:'Le milieu affaiblit la force d’un facteur εᵣ (permittivité relative).'}},
-  {n:{en:'Vector form',fr:'Forme vectorielle'},t:"\\vec F_{21}=k\\dfrac{q_1q_2}{r^2}\\hat r_{12},\\ \\vec F_{12}=-\\vec F_{21}",d:{en:"Equal and opposite forces (Newton's 3rd law).",fr:'Forces égales et opposées (3ᵉ loi de Newton).'}}],
-  summary:{en:['Like charges repel and unlike charges attract.','The force is proportional to the product of the charges, q₁q₂.','The force is inversely proportional to r²: double the distance and the force becomes ¼.','A medium reduces the force by a factor of εᵣ (water: about 80×).','The forces on the two charges are equal in size and opposite in direction.'],
-   fr:['Les charges de même signe se repoussent, celles de signes opposés s’attirent.','La force est proportionnelle au produit des charges q₁q₂.','La force est inversement proportionnelle à r² : distance ×2 → force ÷4.','Un milieu divise la force par εᵣ (eau : environ 80).','Les forces sur les deux charges sont égales et opposées.']}},
- {id:'flux',ref:'§11.4',title:{en:'Electric Flux',fr:'Flux électrique'},formulas:[
-  {n:{en:'Electric flux',fr:'Flux électrique'},t:"\\Phi_e=\\vec E\\cdot\\vec A=EA\\cos\\theta",d:{en:'θ is the angle between E and the normal to the area.',fr:'θ est l’angle entre E et la normale à la surface.'}},
-  {n:{en:'Closed surface (Gauss)',fr:'Surface fermée (Gauss)'},t:"\\Phi_e=\\dfrac{Q}{\\varepsilon_0}",d:{en:'Total flux depends only on the enclosed charge Q.',fr:'Le flux total ne dépend que de la charge intérieure Q.'}}],
-  summary:{en:['Flux measures how many field lines cross a surface.','It is largest at θ = 0° and zero at θ = 90°.','Through a closed surface the flux is Q/ε₀.'],fr:['Le flux mesure le nombre de lignes de champ qui traversent une surface.','Il est maximal pour θ = 0° et nul pour θ = 90°.','À travers une surface fermée, le flux vaut Q/ε₀.']}},
- {id:'rc',ref:'§11.13',title:{en:'Charging & Discharging a Capacitor',fr:'Charge et décharge d’un condensateur'},formulas:[
-  {n:{en:'Time constant',fr:'Constante de temps'},t:"\\tau = RC",d:{en:'Time to reach 63% of full charge.',fr:'Temps pour atteindre 63 % de la charge finale.'}},
-  {n:{en:'Charging',fr:'Charge'},t:"q=q_0\\left(1-e^{-t/RC}\\right)",d:{en:'q₀ = CV₀ is the final charge.',fr:'q₀ = CV₀ est la charge finale.'}},
-  {n:{en:'Discharging',fr:'Décharge'},t:"q=q_0\\,e^{-t/RC}",d:{en:'After 5τ it is practically empty.',fr:'Après 5τ il est pratiquement vide.'}},
-  {n:{en:'Current',fr:'Courant'},t:"I=\\dfrac{V_0}{R}\\,e^{-t/RC}",d:{en:'Largest at the start, then decays exponentially.',fr:'Maximal au début, puis décroît exponentiellement.'}}],
-  summary:{en:['A large RC means slow charging.','After one τ: 63% charged, or 37% left when discharging.','After about 5τ the process is complete.'],fr:['Un grand RC signifie une charge lente.','Après un τ : 63 % chargé, ou 37 % restant en décharge.','Après environ 5τ le processus est terminé.']}}];
-
-/* ===================== helpers ===================== */
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const K=8.99e9,FONT='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif';
-const store={get(k,d){try{const v=localStorage.getItem('pa_'+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('pa_'+k,JSON.stringify(v))}catch(e){}}};
-let lang=store.get('lang','en');const T=k=>I[lang][k]??I.en[k];const L10=o=>o[lang]||o.en;
-function tex(el,t,disp=true){if(!el)return;if(window.katex){try{katex.render(t,el,{displayMode:disp,throwOnError:false,trust:true,strict:false});return}catch(e){}}el.textContent=t.replace(/\\htmlClass\{[^}]*\}/g,'')}
-function num(s){return lang==='fr'?String(s).replace('.',','):String(s)}
-function sciTex(x,d=3){if(x===0)return'0';const a=Math.abs(x);if(a>=0.01&&a<1000)return num(+x.toPrecision(d));const e=Math.floor(Math.log10(a));return num((x/10**e).toFixed(d-1))+'\\times10^{'+e+'}'}
-function sciTxt(x,d=3){if(x===0)return'0';const a=Math.abs(x);if(a>=0.01&&a<1000)return num(+x.toPrecision(d));const e=Math.floor(Math.log10(a));const sup={'-':'⁻',0:'⁰',1:'¹',2:'²',3:'³',4:'⁴',5:'⁵',6:'⁶',7:'⁷',8:'⁸',9:'⁹'};return num((x/10**e).toFixed(d-1))+'×10'+String(e).split('').map(c=>sup[c]).join('')}
-function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2200)}
-function fitCanvas(c){const r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=Math.max(1,r.width*d);c.height=Math.max(1,r.height*d);const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);return{w:r.width,h:r.height,x}}
-function go(id){const el=document.getElementById(id);if(!el)return;const y=el.getBoundingClientRect().top+scrollY-60;scrollTo({top:y,behavior:'smooth'})}
-// one click handler for every [data-go] / [data-open] / [data-close] button, also inside translated text
-document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){e.preventDefault();go(g.dataset.go)}
- const o=e.target.closest('[data-open]');if(o){o.dataset.open==='pdf'?openExp():openBook()}
- const c=e.target.closest('[data-close]');if(c)$('#'+c.dataset.close).classList.remove('open');
- if(e.target.classList.contains('backdrop'))e.target.classList.remove('open')});
-
-/* ===================== progress steps ===================== */
-const visited=new Set(store.get('visited',[]));const nav=$('#steps');
-for(let i=0;i<7;i++){const b=document.createElement('button');b.dataset.go='s'+i;b.setAttribute('aria-label','Step '+i);nav.appendChild(b)}
-function paintSteps(cur){[...nav.children].forEach((a,j)=>a.className=j===cur?'now':visited.has(j)?'done':'')}
-const secObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=+e.target.dataset.step;visited.add(i);store.set('visited',[...visited]);paintSteps(i)}}),{threshold:.3});
-$$('section').forEach(s=>secObs.observe(s));
-
-/* ===================== HERO: balloon & paper ===================== */
-const Hero=(function(){
- const c=$('#heroCanvas');let W=0,H=0,ctx;const B={x:0,y:90,r:46};let dragging=false,touched=false,bits=[];
- function init(){const f=fitCanvas(c);W=f.w;H=f.h;ctx=f.x;bits=[];for(let i=0;i<26;i++)bits.push({x:W*.45+Math.random()*W*.5,y:H-14,vx:0,vy:0,a:Math.random()*6,s:5+Math.random()*5,stuck:null,col:['#fff','#ffe9a8','#bde0ff','#ffd0dc'][i%4]})}
- const pos=e=>{const r=c.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};
- c.addEventListener('pointerdown',e=>{const p=pos(e);if(Math.hypot(p.x-B.x,p.y-B.y)<B.r+40){dragging=touched=true;c.setPointerCapture(e.pointerId)}});
- c.addEventListener('pointermove',e=>{if(!dragging)return;const p=pos(e);B.x=Math.max(B.r,Math.min(W-B.r,p.x));B.y=Math.max(B.r,Math.min(H-70,p.y))});
- c.addEventListener('pointerup',()=>{dragging=false;bits.forEach(b=>{if(b.stuck&&Math.random()<.5)b.stuck=null})});
- function step(t){if(!W){requestAnimationFrame(step);return}
-  if(!touched){B.x=W*.45+Math.sin(t/1400)*W*.3;B.y=95+Math.sin(t/900)*25}
-  ctx.clearRect(0,0,W,H);const g=ctx.createLinearGradient(0,H-30,0,H);g.addColorStop(0,'#3a2c55');g.addColorStop(1,'#241a38');ctx.fillStyle=g;ctx.fillRect(0,H-22,W,22);
-  bits.forEach(b=>{const dx=B.x-b.x,dy=B.y-b.y,d=Math.hypot(dx,dy)||1;
-   if(b.stuck){b.x=B.x+b.stuck.x;b.y=B.y+b.stuck.y;if(!dragging&&touched&&Math.random()<.002)b.stuck=null;return}
-   if(d<230){ctx.strokeStyle=`rgba(255,209,102,${.25*(1-d/230)})`;ctx.setLineDash([3,6]);ctx.lineDashOffset=-t/40;ctx.beginPath();ctx.moveTo(b.x,b.y);ctx.lineTo(B.x,B.y);ctx.stroke();ctx.setLineDash([])}
-   const f=Math.min(1.4,5200/(d*d));b.vx+=f*dx/d;b.vy+=f*dy/d+.35;b.vx*=.96;b.vy*=.98;b.x+=b.vx;b.y+=b.vy;b.a+=b.vx*.05;
-   if(b.y>H-14){b.y=H-14;b.vy*=-.2;b.vx*=.7}b.x=Math.max(4,Math.min(W-4,b.x));
-   if(d<B.r+6){const ang=Math.atan2(-dy,-dx);b.stuck={x:Math.cos(ang)*(B.r+3),y:Math.sin(ang)*(B.r+3)};b.vx=b.vy=0}});
-  ctx.strokeStyle='#cfd6ff88';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(B.x,B.y+B.r+6);ctx.bezierCurveTo(B.x-12,B.y+B.r+40,B.x+14,B.y+B.r+70,B.x-4,B.y+B.r+100);ctx.stroke();
-  const bg=ctx.createRadialGradient(B.x-15,B.y-18,6,B.x,B.y,B.r*1.1);bg.addColorStop(0,'#ff9fb0');bg.addColorStop(.5,'#ff4d6d');bg.addColorStop(1,'#a3123a');ctx.fillStyle=bg;ctx.beginPath();ctx.ellipse(B.x,B.y,B.r*.9,B.r,0,0,7);ctx.fill();
-  ctx.fillStyle='#a3123a';ctx.beginPath();ctx.moveTo(B.x-6,B.y+B.r+6);ctx.lineTo(B.x+6,B.y+B.r+6);ctx.lineTo(B.x,B.y+B.r-2);ctx.fill();
-  ctx.fillStyle='#ffffff55';ctx.beginPath();ctx.ellipse(B.x-14,B.y-20,7,13,-.5,0,7);ctx.fill();
-  ctx.font='bold 15px '+FONT;ctx.textAlign='center';ctx.textBaseline='middle';
-  for(let i=0;i<8;i++){const a=i/8*6.28+t/3000;ctx.fillStyle='#e3f2ff';ctx.fillText('−',B.x+Math.cos(a)*B.r*.6,B.y+Math.sin(a)*B.r*.66)}
-  bits.forEach(b=>{ctx.save();ctx.translate(b.x,b.y);ctx.rotate(b.a);ctx.fillStyle=b.col;ctx.fillRect(-b.s/2,-b.s/3,b.s,b.s*.66);ctx.restore()});
-  ctx.fillStyle='#9aa6d4';ctx.font='13px '+FONT;ctx.textAlign='left';ctx.textBaseline='alphabetic';ctx.fillText(touched?`${T('stuck')}: ${bits.filter(b=>b.stuck).length}`:T('dragB'),12,22);
-  requestAnimationFrame(step)}
- new ResizeObserver(init).observe(c);requestAnimationFrame(step);
-})();
-
-/* ===================== PREDICT ===================== */
-function paintPredict(){const v=store.get('predict',null);$$('.choice').forEach(b=>b.classList.toggle('picked',b.dataset.v===v));$('#predictFb').innerHTML=!v?T('fb0'):v==='quarter'?T('fbR'):T('fbO')}
-$$('.choice').forEach(b=>b.onclick=()=>{store.set('predict',b.dataset.v);paintPredict()});
-
-/* ===================== LAB ===================== */
-const DEF={q1:2,q2:-2,er:1};
-const S={...DEF,c:[{x:6,y:0},{x:16,y:0}],lines:true,flow:true,flash:null,flashT:0,usedWater:false,discovered:false};
-const labC=$('#lab');let Lb={w:0,h:0,s:1},SPAN=26,lines=[];
-const cm2px=p=>({x:p.x*Lb.s,y:Lb.h/2+p.y*Lb.s}),px2cm=p=>({x:p.x/Lb.s,y:(p.y-Lb.h/2)/Lb.s});
-const dist=()=>Math.hypot(S.c[1].x-S.c[0].x,S.c[1].y-S.c[0].y);
-const force=(r=dist())=>K*(S.q1*1e-6)*(S.q2*1e-6)/(S.er*(r/100)**2);
-function clampC(c){const hy=Lb.h/2/Lb.s-1.6;return{x:Math.max(1.6,Math.min(SPAN-1.6,c.x)),y:Math.max(-hy,Math.min(hy,c.y))}}
-function placeDefault(){const mid=SPAN/2;S.c=[{x:mid-5,y:0},{x:mid+5,y:0}]}
-function resizeLab(){const f=fitCanvas(labC);if(f.w<10)return;const first=!Lb.x;SPAN=f.w<600?26:40;Lb={w:f.w,h:f.h,x:f.x,s:f.w/SPAN};if(first)placeDefault();S.c=S.c.map(clampC);computeLines();update()}
-function E(x,y){let ex=0,ey=0;[S.q1,S.q2].forEach((q,i)=>{const p=cm2px(S.c[i]);const dx=x-p.x,dy=y-p.y,r2=dx*dx+dy*dy,r=Math.sqrt(r2);if(r<1)return;ex+=q*dx/(r2*r);ey+=q*dy/(r2*r)});return[ex,ey]}
-function computeLines(){lines=[];if(!Lb.x)return;const qs=[S.q1,S.q2];const dir=qs.some(q=>q>0)?1:-1;
- qs.forEach((q,i)=>{if(q*dir<=0)return;const n=Math.max(6,Math.round(Math.abs(q)*2.2));const p0=cm2px(S.c[i]);
-  for(let k=0;k<n;k++){const a=k/n*Math.PI*2+.13;let x=p0.x+Math.cos(a)*20,y=p0.y+Math.sin(a)*20;const pts=[[x,y]];
-   for(let s=0;s<700;s++){const[ex,ey]=E(x,y);const m=Math.hypot(ex,ey);if(!m)break;x+=dir*ex/m*4;y+=dir*ey/m*4;pts.push([x,y]);
-    if(x<-40||y<-40||x>Lb.w+40||y>Lb.h+40)break;const o=cm2px(S.c[1-i]);if(Math.hypot(x-o.x,y-o.y)<16)break}
-   lines.push(dir>0?pts:pts.reverse())}})}
-let dragI=-1;
-labC.addEventListener('pointerdown',e=>{const r=labC.getBoundingClientRect(),p={x:e.clientX-r.left,y:e.clientY-r.top};let best=-1,bd=50;S.c.forEach((c,i)=>{const q=cm2px(c),d=Math.hypot(q.x-p.x,q.y-p.y);if(d<bd){bd=d;best=i}});if(best>=0){dragI=best;labC.setPointerCapture(e.pointerId)}});
-labC.addEventListener('pointermove',e=>{if(dragI<0)return;const r=labC.getBoundingClientRect();const c=clampC(px2cm({x:e.clientX-r.left,y:e.clientY-r.top}));const o=S.c[1-dragI];if(Math.hypot(c.x-o.x,c.y-o.y)<2.5)return;S.c[dragI]=c;computeLines();update()});
-labC.addEventListener('pointerup',()=>dragI=-1);labC.addEventListener('pointercancel',()=>dragI=-1);
-function arrow(ctx,x,y,dx,dy,col){const l=Math.hypot(dx,dy);if(l<2)return;const ux=dx/l,uy=dy/l;ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=5;ctx.lineCap='round';ctx.shadowColor=col;ctx.shadowBlur=12;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+dx-ux*10,y+dy-uy*10);ctx.stroke();ctx.beginPath();ctx.moveTo(x+dx,y+dy);ctx.lineTo(x+dx-ux*16-uy*9,y+dy-uy*16+ux*9);ctx.lineTo(x+dx-ux*16+uy*9,y+dy-uy*16-ux*9);ctx.fill();ctx.shadowBlur=0}
-function drawLab(t){const{x:ctx,w,h}=Lb;if(!ctx)return;ctx.clearRect(0,0,w,h);
- ctx.strokeStyle='#121a38';ctx.lineWidth=1;for(let i=0;i<=SPAN;i+=2){const X=i*Lb.s;ctx.beginPath();ctx.moveTo(X,0);ctx.lineTo(X,h);ctx.stroke()}
- for(let Y=(h/2)%(2*Lb.s);Y<h;Y+=2*Lb.s){ctx.beginPath();ctx.moveTo(0,Y);ctx.lineTo(w,Y);ctx.stroke()}
- ctx.fillStyle='#3a4677';ctx.font='10px '+FONT;ctx.textAlign='left';for(let i=10;i<SPAN;i+=10)ctx.fillText(i+' cm',i*Lb.s+3,h-6);
- if(S.er>1){ctx.fillStyle=S.er>=80?'rgba(40,120,255,.13)':'rgba(170,140,255,.08)';ctx.fillRect(0,0,w,h)}
- if(S.lines){ctx.lineWidth=1.3;lines.forEach(pts=>{ctx.strokeStyle='rgba(160,180,255,.3)';ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();
-  if(S.flow&&pts.length>8)for(let k=0;k<pts.length;k+=26){const p=pts[(k+Math.floor(t/30))%pts.length];ctx.fillStyle='rgba(255,230,160,.85)';ctx.beginPath();ctx.arc(p[0],p[1],1.8,0,7);ctx.fill()}})}
- const a=cm2px(S.c[0]),b=cm2px(S.c[1]);const fl=k=>S.flash===k&&t-S.flashT<1800?(.5+.5*Math.sin((t-S.flashT)/90)):0;
- const fr=fl('r');ctx.strokeStyle=fr?'#ffd166':'#55608f';ctx.lineWidth=fr?3:1.2;ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.setLineDash([]);
- ctx.fillStyle=fr?'#ffd166':'#cfd6ff';ctx.font='600 13px '+FONT;ctx.textAlign='center';ctx.fillText('r = '+num(dist().toFixed(1))+' cm',(a.x+b.x)/2,(a.y+b.y)/2-30);
- const F=force();const len=F===0?0:Math.min(Lb.w*.28,24+38*Math.log10(1+Math.abs(F)/.005));const dd=Math.hypot(b.x-a.x,b.y-a.y)||1,ux=(b.x-a.x)/dd,uy=(b.y-a.y)/dd,sg=F>0?-1:1;
- const col=fl('F')?'#fff':'#ffd166';arrow(ctx,a.x,a.y,ux*len*sg,uy*len*sg,col);arrow(ctx,b.x,b.y,-ux*len*sg,-uy*len*sg,col);
- [[a,S.q1,'q1'],[b,S.q2,'q2']].forEach(([p,q,k])=>{const R=14+Math.abs(q)*1.2,neu=q===0,c1=neu?'#888888':q>0?'#ff5470':'#3fa9ff',f=fl(k);
-  const gl=ctx.createRadialGradient(p.x,p.y,R*.3,p.x,p.y,R*2.6+f*20);gl.addColorStop(0,c1+'aa');gl.addColorStop(1,c1+'00');ctx.fillStyle=gl;ctx.beginPath();ctx.arc(p.x,p.y,R*2.6+f*20,0,7);ctx.fill();
-  const g=ctx.createRadialGradient(p.x-R*.35,p.y-R*.35,2,p.x,p.y,R);g.addColorStop(0,'#fff');g.addColorStop(.35,c1);g.addColorStop(1,neu?'#333':q>0?'#8a0f2a':'#0b3d78');ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,R,0,7);ctx.fill();
-  ctx.fillStyle='#fff';ctx.font=`700 ${Math.round(R)}px ${FONT}`;ctx.textBaseline='middle';ctx.fillText(neu?'0':q>0?'+':'−',p.x,p.y+1);ctx.textBaseline='alphabetic';
-  ctx.font='600 12px '+FONT;ctx.fillStyle='#cfd6ff';ctx.fillText((k==='q1'?'q₁ ':'q₂ ')+(q>0?'+':'')+num(q)+' µC',p.x,p.y+R+18)});
- if(S.er>1){ctx.fillStyle='#cfd6ff';ctx.textAlign='left';ctx.font='12px '+FONT;ctx.fillText(T('mediumTxt')(num(S.er)),10,18)}}
-function drawGraph(){const c=$('#graph');const{w,h,x:ctx}=fitCanvas(c);if(w<10)return;ctx.clearRect(0,0,w,h);const pad=28;const q=Math.abs(S.q1*S.q2);
- if(!q){ctx.fillStyle='#9aa6d4';ctx.font='13px '+FONT;ctx.fillText(T('zero'),12,h/2);return}
- const r0=3,r1=SPAN,Fm=K*q*1e-12/(S.er*(r0/100)**2),X=r=>pad+(r-r0)/(r1-r0)*(w-pad-10),Y=f=>h-pad-(f/Fm)*(h-pad-10);
- ctx.strokeStyle='#2a3566';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad,8);ctx.lineTo(pad,h-pad);ctx.lineTo(w-6,h-pad);ctx.stroke();ctx.fillStyle='#6b78ab';ctx.font='11px '+FONT;ctx.fillText('F',10,18);ctx.fillText('r (cm) →',w-62,h-10);
- ctx.strokeStyle='#a78bfa';ctx.lineWidth=2;ctx.beginPath();for(let r=r0;r<=r1;r+=.25){const f=K*q*1e-12/(S.er*(r/100)**2);r===r0?ctx.moveTo(X(r),Y(f)):ctx.lineTo(X(r),Y(f))}ctx.stroke();
- const r=dist();if(r>=r0){ctx.fillStyle='#ffd166';ctx.shadowColor='#ffd166';ctx.shadowBlur=14;ctx.beginPath();ctx.arc(X(r),Y(Math.abs(force())),6,0,7);ctx.fill();ctx.shadowBlur=0}}
-function update(){const r=dist(),F=force();$('#roR').textContent=num(r.toFixed(1))+' cm';$('#roF').textContent=sciTxt(Math.abs(F))+' N';
- $('#roT').textContent=F>0?T('repel'):F<0?T('attract'):T('none');$('#roT').style.color=F>0?'var(--pos)':F<0?'var(--neg)':'';$('#roE').textContent=num(S.er);
- $('#q1v').textContent=(S.q1>0?'+':'')+num(S.q1)+' µC';$('#q2v').textContent=(S.q2>0?'+':'')+num(S.q2)+' µC';
- tex($('#live'),`F=\\frac{(8.99\\times10^{9})(${sciTex(S.q1*1e-6)})(${sciTex(S.q2*1e-6)})}{${S.er>1?num(S.er)+'\\,':''}(${sciTex(r/100)})^2}=\\mathbf{${sciTex(Math.abs(F))}\\ N}`);
- drawGraph();checkChallenges()}
-$('#q1').oninput=e=>{S.q1=+e.target.value;computeLines();update()};$('#q2').oninput=e=>{S.q2=+e.target.value;computeLines();update()};
-$('#medium').onchange=e=>{S.er=+e.target.value;if(S.er===80)S.usedWater=true;update()};
-$('#tLines').onclick=e=>{S.lines=!S.lines;e.currentTarget.classList.toggle('on',S.lines)};
-$('#tFlow').onclick=e=>{S.flow=!S.flow;e.currentTarget.classList.toggle('on',S.flow)};
-$('#tSnap').onclick=()=>{let a={...S.c[0]};if(a.x+10>SPAN-1.6)a.x=SPAN-11.6;S.c=[a,{x:a.x+10,y:a.y}];computeLines();update();toast(T('snap'))};
-$('#tReset').onclick=()=>{Object.assign(S,DEF);$('#q1').value=DEF.q1;$('#q2').value=DEF.q2;$('#medium').value='1';placeDefault();computeLines();update();toast(T('reset'))};
-(function loop(t){drawLab(t);requestAnimationFrame(loop)})(0);
-new ResizeObserver(resizeLab).observe(labC);new ResizeObserver(()=>Lb.x&&drawGraph()).observe($('#graph'));
-
-/* ===================== RECORDS ===================== */
-let recs=store.get('recs',[]);
-function renderRecs(){const tb=$('#rec');if(!recs.length){tb.innerHTML=`<tr><td colspan="6" style="text-align:center;color:var(--muted)">${T('noRec')}</td></tr>`;$('#disc').style.display='none';return}
- const f0=recs[0];tb.innerHTML=recs.map((r,i)=>`<tr><td>${i+1}</td><td>${num(r.q.toFixed(1))}</td><td>${num(r.r.toFixed(1))}</td><td>${sciTxt(r.F)}</td><td>${i?num((r.r/f0.r).toFixed(2)):'–'}</td><td>${i&&r.F?num((f0.F/r.F).toFixed(2)):'–'}</td></tr>`).join('');
- let msg='';for(let i=1;i<recs.length;i++){const r=recs[i];if(Math.abs(r.q-f0.q)<1e-9&&r.er===f0.er&&r.F){const rr=r.r/f0.r;if(Math.abs(rr-Math.round(rr))<.08&&Math.round(rr)>=2){msg=T('disc')(+rr.toFixed(1),(f0.F/r.F).toFixed(1));S.discovered=true}}}
- if(!msg&&recs.length>1&&recs.some(r=>r.q!==f0.q))msg=T('tip');$('#disc').style.display=msg?'block':'none';$('#disc').innerHTML=msg;checkChallenges()}
-$('#recordBtn').onclick=()=>{const F=Math.abs(force());recs.push({q:S.q1*S.q2,r:dist(),F,er:S.er});store.set('recs',recs);renderRecs();toast(T('rec')(recs.length,num(dist().toFixed(1)),sciTxt(F)))};
-$('#clearRec').onclick=()=>{recs=[];S.discovered=false;store.set('recs',recs);renderRecs()};
-
-/* ===================== FORMULA BUILDER ===================== */
-const LINK={F:'F',k:null,q1:'q1',q2:'q2',r:'r'};
-function paintFormula(){tex($('#bigFormula'),`\\htmlClass{piece p-F}{F}=\\htmlClass{piece p-k}{k}\\,\\dfrac{\\htmlClass{piece p-q1}{q_1}\\,\\htmlClass{piece p-q2}{q_2}}{\\htmlClass{piece p-r}{r^2}}`);$('#pieceInfo').innerHTML=T('tap');
- Object.keys(LINK).forEach(key=>{const el=$('#bigFormula .p-'+key);if(el)el.addEventListener('click',()=>{$$('#bigFormula .piece').forEach(p=>p.classList.remove('active'));el.classList.add('active');$('#pieceInfo').innerHTML=T('pieces')[key]+(LINK[key]?` <button class="link" data-go="s2">${T('glow')}</button>`:'');if(LINK[key]){S.flash=LINK[key];S.flashT=performance.now()}})})}
-
-/* ===================== MISSIONS ===================== */
-const CHK=[()=>force()<0,()=>S.er===1&&Math.abs(Math.abs(force())-.9)/.9<=.03,()=>S.usedWater,()=>S.discovered,()=>force()>=5];
-let chDone=new Set(store.get('chal',[]));
-function paintChals(){$('#chals').innerHTML=T('missions').map((m,i)=>`<div class="chal" id="ch${i}"><div class="tick">${i+1}</div><div><b>${m[0]}</b><br><small>${T('hint')}: ${m[1]}</small></div></div>`).join('');checkChallenges(true)}
-function checkChallenges(silent){CHK.forEach((ok,i)=>{if(!chDone.has(i)&&ok()){chDone.add(i);store.set('chal',[...chDone]);if(!silent)toast(T('mDone')(i+1))}const el=$('#ch'+i);if(el){el.classList.toggle('ok',chDone.has(i));el.querySelector('.tick').textContent=chDone.has(i)?'✓':i+1}});
- const s=$('#chalScore');if(s)s.innerHTML=chDone.size===CHK.length?T('all'):T('score')(chDone.size,CHK.length)}
-
-/* ===================== SUMMARY ===================== */
-function paintSummary(){const L0=LESSONS[0];
- $('#sumFormulas').innerHTML=L0.formulas.map((f,i)=>`<div class="fcard"><b>${L10(f.n)}</b><div class="m" id="sf${i}"></div><small style="color:var(--muted)">${L10(f.d)}</small></div>`).join('');
- L0.formulas.forEach((f,i)=>tex($('#sf'+i),f.t));
- $('#sumList').innerHTML=L10(L0.summary).map((s,i)=>`<li class="hl" id="sl${i}">${s}</li>`).join('');
- tex($('#worked'),`\\begin{aligned}F&=\\frac{(8.99\\times10^9)(3\\times10^{-6})(2\\times10^{-6})}{(0.05)^2}\\\\&=\\frac{5.39\\times10^{-2}}{2.5\\times10^{-3}}\\approx\\mathbf{${num('21.6')}\\ N}\\ \\text{(${T('attr')})}\\end{aligned}`);
- $('#real').innerHTML=T('real').map((r,i)=>`<div><b>${r[0]}</b><span class="hl" id="r${i}">${r[1]}</span></div>`).join('')}
-
-/* ===================== ORIGINAL BOOK TEXT ===================== */
-const bookCache={};
-async function openBook(){$('#bookDlg').classList.add('open');const body=$('#bookBody');
- try{if(!bookCache[lang]){const r=await fetch(`packs/source-${lang}.json`);if(!r.ok)throw 0;bookCache[lang]=(await r.json())[0]}
-  const s=bookCache[lang];$('#bookRef').textContent=s.reference;body.innerHTML=s.paragraphs.map((p,i)=>`<p class="bookp hl" id="bk-${lang}-${i}">${p}</p>`).join('');restoreHL()}
- catch(e){body.innerHTML=`<p class="feedback">${T('bookFail')}</p>`}}
-$('#bookBtn').onclick=openBook;
-
-/* ===================== HIGHLIGHTS (saved per paragraph & language) ===================== */
-let hlColor='y';const HL=store.get('hl',{});
-const hlKey=el=>(el.dataset.t?lang+':':'')+el.id;
-function restoreHL(){$$('.hl').forEach(el=>{const v=HL[hlKey(el)];if(v)el.innerHTML=v})}
-function saveHL(host){HL[hlKey(host)]=host.innerHTML;store.set('hl',HL)}
-function setHL(on){document.body.classList.toggle('hlmode',on);$('#hlBtn').classList.toggle('on',on);if(on)toast(T('hlOn'))}
-$('#hlBtn').onclick=()=>setHL(!document.body.classList.contains('hlmode'));$('#hlDone').onclick=()=>setHL(false);
-$$('.sw').forEach(s=>s.onclick=()=>{hlColor=s.dataset.c;$$('.sw').forEach(x=>x.classList.toggle('sel',x===s));applySel()});
-function applySel(){if(!document.body.classList.contains('hlmode'))return;const sel=getSelection();if(!sel.rangeCount||sel.isCollapsed)return;const rg=sel.getRangeAt(0);
- const anc=rg.commonAncestorContainer.nodeType===1?rg.commonAncestorContainer:rg.commonAncestorContainer.parentElement;const host=anc.closest('.hl');if(!host)return;
- const w=document.createTreeWalker(host,NodeFilter.SHOW_TEXT);const nodes=[];while(w.nextNode()){const n=w.currentNode;if(rg.intersectsNode(n)&&n.textContent.trim())nodes.push(n)}
- nodes.forEach(n=>{let s=0,e=n.length;if(n===rg.startContainer)s=rg.startOffset;if(n===rg.endContainer)e=rg.endOffset;if(s>=e)return;const mid=n.splitText(s);mid.splitText(e-s);const m=document.createElement('mark');m.className=hlColor;mid.parentNode.insertBefore(m,mid);m.appendChild(mid)});
- sel.removeAllRanges();saveHL(host);toast(T('hlOk'))}
-document.addEventListener('mouseup',()=>setTimeout(applySel,10));
-document.addEventListener('selectionchange',()=>{clearTimeout(window._sc);window._sc=setTimeout(()=>{if(matchMedia('(pointer:coarse)').matches)applySel()},1000)});
-document.addEventListener('click',e=>{const m=e.target.closest('mark');if(m&&document.body.classList.contains('hlmode')){const host=m.closest('.hl');m.replaceWith(...m.childNodes);host.normalize();saveHL(host)}});
-
-/* ===================== PDF EXPORT ===================== */
-let size='phone';
-function openExp(){$('#expLessons').innerHTML=LESSONS.map(l=>`<label class="opt"><input type="checkbox" value="${l.id}" checked> ${L10(l.title)} <span class="pill">${l.ref}</span></label>`).join('');$('#exp').classList.add('open')}
-$('#pdfBtn').onclick=openExp;
-$$('#sizeSeg button').forEach(b=>b.onclick=()=>{size=b.dataset.s;$$('#sizeSeg button').forEach(x=>x.classList.toggle('on',x===b))});
-$('#doPdf').onclick=()=>{const ids=$$('#expLessons input:checked').map(i=>i.value);if(!ids.length){toast(T('pick'));return}
- const P=$('#print');P.innerHTML=`<h1>${T('fbook')}</h1><div class="meta">Physics 12 · Chapter 11 · ${new Date().toLocaleDateString(lang)}</div>`;
- ids.forEach(id=>{const l=LESSONS.find(x=>x.id===id);const sec=document.createElement('div');sec.innerHTML=`<h2>${L10(l.title)} <span class="meta">${l.ref}</span></h2>`;
-  if($('#incF').checked)l.formulas.forEach(f=>{const d=document.createElement('div');d.className='pf';d.innerHTML=`<div class="n">${L10(f.n)}</div><div class="m"></div><div class="d">${L10(f.d)}</div>`;tex(d.querySelector('.m'),f.t);sec.appendChild(d)});
-  if($('#incS').checked)sec.insertAdjacentHTML('beforeend',`<b>${T('summary')}</b><ul>`+L10(l.summary).map(s=>`<li>${s}</li>`).join('')+'</ul>');
-  if($('#incH').checked&&id==='coulomb'){const tmp=document.createElement('div');tmp.innerHTML=Object.values(HL).join(' ');const ms=[...tmp.querySelectorAll('mark')];if(ms.length)sec.insertAdjacentHTML('beforeend',`<b>${T('myhl')}</b>`+ms.map(m=>`<div class="ph">${m.textContent}</div>`).join(''))}
-  P.appendChild(sec)});
- $('#pageSize').textContent=size==='phone'?'@page{size:75mm 140mm;margin:5mm}@media print{#print{font-size:9.5pt}}':'@page{size:A4;margin:16mm}@media print{#print{font-size:11pt}}';
- $('#exp').classList.remove('open');setTimeout(()=>window.print(),200)};
-
-/* ===================== RESTART ===================== */
-$('#restart').onclick=()=>{if(!confirm(T('restartQ')))return;['visited','predict','recs','chal','hl'].forEach(k=>{try{localStorage.removeItem('pa_'+k)}catch(e){}});location.reload()};
-
-/* ===================== LANGUAGE ===================== */
-function applyLang(){document.documentElement.lang=lang;$('#langBtn').textContent=lang==='en'?'FR':'EN';
- $$('[data-t]').forEach(el=>{const v=T(el.dataset.t);if(typeof v==='string')el.innerHTML=v});
- $('#medium').innerHTML=T('media').map((m,i)=>`<option value="${[1,2.1,5,80][i]}">${m}</option>`).join('');$('#medium').value=String(S.er);
- paintPredict();paintFormula();paintChals();paintSummary();renderRecs();restoreHL();update()}
-$('#langBtn').onclick=()=>{lang=lang==='en'?'fr':'en';store.set('lang',lang);applyLang();if($('#bookDlg').classList.contains('open'))openBook()};
-applyLang();
-</script>
 </body>
 </html>

@@ -17,7 +17,9 @@ en:{
  hint0:'👆 Drag the balloon. What pulls the paper up, and why only when the balloon is close?',
  kA:'A · Experience',kB:'B · Predict',kC:'C · Experiment',kD:'D · Measure',kE:'E · Discover',kF:'F · Understand',kG:'G · Apply',kH:'H · Remember',
  hB:'Guess before you touch',pB:'Two small charges sit <b>10 cm</b> apart and push each other with a force <b>F</b>. You move them to <b>20 cm</b>, twice as far. What happens to the force?',
- same:'Stays F',fb0:"Pick one. Being wrong is fine: you'll test it yourself.",fbSaved:'Your prediction is saved. <button class="link" data-go="sC">Now test it in the lab →</button>',
+ same:'Stays F',fb0:"Pick one. Being wrong is fine: you'll test it yourself.",fbR:'🎯 Bold prediction: <b>F ÷ 4</b>. Now prove it with real measurements!',fbO:g=>`Your prediction: <b>${g}</b>. Good. Now let the charges decide.`,testBtn:'🧪 Test my prediction in the lab',
+ testGuide:'<b>Your experiment:</b> ① tap 📌 Record at 10 cm ② tap <b>×2 distance</b> ③ tap 📌 Record again.',g1:'👍 Force at 10 cm saved. Now tap <b>×2 distance</b>, then 📌 Record.',g2:'🎉 Both measurements saved! <button class="link" data-go="sE">See what you discovered →</button>',
+ tDouble:'×2 distance',noFit:'Not enough room: move the charges closer first.',predR:'✅ Your prediction <b>F ÷ 4</b> was right!',predW:g=>`You predicted <b>${g}</b>. The measurements say <b>F ÷ 4</b>. That is science: test, then trust the data.`,
  hC:'The charge lab',pC:'Drag the charges. Change their size, sign and the medium between them. The arrows show the force on <b>each</b> charge.',
  tLines:'Field lines',tFlow:'Flow',tSnap:'Distance = 10 cm',tReset:'↺ Reset',record:'📌 Record',
  graphHint:'Force F against distance r for your charges. The glowing dot is you.',
@@ -56,7 +58,9 @@ fr:{
  hint0:'👆 Fais glisser le ballon. Qu’est-ce qui soulève le papier, et pourquoi seulement de près ?',
  kA:'A · Vivre',kB:'B · Prédire',kC:'C · Expérimenter',kD:'D · Mesurer',kE:'E · Découvrir',kF:'F · Comprendre',kG:'G · Appliquer',kH:'H · Retenir',
  hB:'Devine avant de toucher',pB:'Deux petites charges sont à <b>10 cm</b> et se repoussent avec une force <b>F</b>. Tu les places à <b>20 cm</b>, deux fois plus loin. Que devient la force ?',
- same:'Reste F',fb0:'Choisis. Se tromper n’est pas grave : tu vas vérifier toi-même.',fbSaved:'Ta prédiction est enregistrée. <button class="link" data-go="sC">Teste-la au labo →</button>',
+ same:'Reste F',fb0:'Choisis. Se tromper n’est pas grave : tu vas vérifier toi-même.',fbR:'🎯 Prédiction audacieuse : <b>F ÷ 4</b>. Prouve-la par de vraies mesures !',fbO:g=>`Ta prédiction : <b>${g}</b>. Bien. Laissons maintenant les charges décider.`,testBtn:'🧪 Tester ma prédiction au labo',
+ testGuide:'<b>Ton expérience :</b> ① touche 📌 Mesurer à 10 cm ② touche <b>×2 distance</b> ③ touche encore 📌 Mesurer.',g1:'👍 Force à 10 cm enregistrée. Touche <b>×2 distance</b>, puis 📌 Mesurer.',g2:'🎉 Les deux mesures sont enregistrées ! <button class="link" data-go="sE">Vois ce que tu as découvert →</button>',
+ tDouble:'×2 distance',noFit:'Pas assez de place : rapproche d’abord les charges.',predR:'✅ Ta prédiction <b>F ÷ 4</b> était juste !',predW:g=>`Tu avais prédit <b>${g}</b>. Les mesures disent <b>F ÷ 4</b>. C’est ça la science : tester, puis croire les données.`,
  hC:'Le labo des charges',pC:'Déplace les charges. Change leur valeur, leur signe et le milieu. Les flèches montrent la force sur <b>chaque</b> charge.',
  tLines:'Lignes de champ',tFlow:'Flux',tSnap:'Distance = 10 cm',tReset:'↺ Réinitialiser',record:'📌 Mesurer',
  graphHint:'Force F en fonction de la distance r pour tes charges. Le point lumineux, c’est toi.',
@@ -95,7 +99,9 @@ ar:{
  hint0:'👆 اسحب البالون. ما الذي يرفع الورق، ولماذا عندما يقترب البالون فقط؟',
  kA:'أ · جرّب',kB:'ب · توقّع',kC:'ج · اختبر',kD:'د · قِس',kE:'هـ · اكتشف',kF:'و · افهم',kG:'ز · طبّق',kH:'ح · تذكّر',
  hB:'خمّن قبل أن تلمس',pB:'شحنتان صغيرتان على بعد <b>10 cm</b> تتنافران بقوة <b>F</b>. تبعدهما إلى <b>20 cm</b>، أي ضعف المسافة. ماذا يحدث للقوة؟',
- same:'تبقى F',fb0:'اختر إجابة. لا بأس بالخطأ: ستتحقق بنفسك.',fbSaved:'حُفظ توقّعك. <button class="link" data-go="sC">اختبره الآن في المختبر ←</button>',
+ same:'تبقى F',fb0:'اختر إجابة. لا بأس بالخطأ: ستتحقق بنفسك.',fbR:'🎯 توقّع جريء: <b>F ÷ 4</b>. أثبته الآن بقياسات حقيقية!',fbO:g=>`توقّعك: <b>${g}</b>. جيد. لندع الشحنات تقرّر الآن.`,testBtn:'🧪 اختبر توقّعي في المختبر',
+ testGuide:'<b>تجربتك:</b> ① اضغط 📌 سجّل عند 10 cm ② اضغط <b>×2 المسافة</b> ③ اضغط 📌 سجّل مجدداً.',g1:'👍 حُفظت القوة عند 10 cm. اضغط الآن <b>×2 المسافة</b> ثم 📌 سجّل.',g2:'🎉 حُفظ القياسان! <button class="link" data-go="sE">شاهد ما اكتشفته ←</button>',
+ tDouble:'×2 المسافة',noFit:'لا توجد مساحة كافية: قرّب الشحنتين أولاً.',predR:'✅ كان توقّعك <b>F ÷ 4</b> صحيحاً!',predW:g=>`توقّعت <b>${g}</b>. القياسات تقول <b>F ÷ 4</b>. هذا هو العلم: اختبر ثم ثق بالبيانات.`,
  hC:'مختبر الشحنات',pC:'اسحب الشحنات. غيّر مقدارها وإشارتها والوسط بينها. تُظهر الأسهم القوة المؤثرة في <b>كل</b> شحنة.',
  tLines:'خطوط المجال',tFlow:'الحركة',tSnap:'المسافة = 10 cm',tReset:'↺ إعادة ضبط',record:'📌 سجّل',
  graphHint:'القوة F بدلالة المسافة r لشحناتك. النقطة المضيئة هي أنت.',
@@ -285,8 +291,8 @@ const html=`<div class="wrap"><nav class="path" id="path"></nav></div>
  <div class="choices"><button class="choice" data-v="half">F ÷ 2</button><button class="choice" data-v="quarter">F ÷ 4</button><button class="choice" data-v="same" data-t="same"></button><button class="choice" data-v="double">F × 2</button></div>
  <div class="feedback" id="predictFb"></div></div></div></section>
 <section class="step" id="sC"><div class="wrap"><div class="kicker" data-t="kC"></div><h2 data-t="hC"></h2><p class="lead hl" id="lC" data-t="pC"></p>
- <div class="labwrap" id="labwrap"><div class="stage"><canvas id="lab"></canvas><button class="ib fsbtn" id="fsBtn" aria-label="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
-  <div class="toggles"><button class="ib on" id="tLines" data-t="tLines"></button><button class="ib on" id="tFlow" data-t="tFlow"></button><button class="ib" id="tSnap" data-t="tSnap"></button><button class="ib" id="tReset" data-t="tReset"></button><button class="btn" id="recordBtn" style="margin-inline-start:auto" data-t="record"></button></div>
+ <div class="guide" id="labGuide" style="display:none;margin-bottom:12px"></div><div class="labwrap" id="labwrap"><div class="stage"><canvas id="lab"></canvas><button class="ib fsbtn" id="fsBtn" aria-label="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+  <div class="toggles"><button class="ib on" id="tLines" data-t="tLines"></button><button class="ib on" id="tFlow" data-t="tFlow"></button><button class="ib" id="tSnap" data-t="tSnap"></button><button class="ib" id="tDouble" data-t="tDouble"></button><button class="ib" id="tReset" data-t="tReset"></button><button class="btn" id="recordBtn" style="margin-inline-start:auto" data-t="record"></button></div>
   <canvas id="graph"></canvas><div class="hint" data-t="graphHint"></div></div>
  <div class="card"><div class="readout"><div class="ro"><small data-t="roR"></small><b id="roR">–</b></div><div class="ro"><small data-t="roF"></small><b id="roF">–</b></div><div class="ro"><small data-t="roT"></small><b id="roT">–</b></div><div class="ro"><small data-t="roFx"></small><b id="roFx">–</b></div></div>
   <div class="ctrl"><label><span data-t="q1"></span> <b id="q1v"></b></label><input type="range" id="q1" min="-10" max="10" step="0.5" value="2"></div>
@@ -396,7 +402,9 @@ function bindLab(){const c=$('#lab');let drag=-1,moved=false;
  $('#tLines').onclick=e=>{S.lines=!S.lines;e.currentTarget.classList.toggle('on',S.lines)};$('#tFlow').onclick=e=>{S.flow=!S.flow;e.currentTarget.classList.toggle('on',S.flow)};
  $('#tSnap').onclick=()=>{let a={...S.c[0]};if(a.x+10>SPAN-1.6)a.x=SPAN-11.6;S.c=[a,{x:a.x+10,y:a.y}];computeLines();update();PA.toast(t('snap'))};
  $('#tReset').onclick=()=>{Object.assign(S,DEF);$('#q1').value=DEF.q1;$('#q2').value=DEF.q2;$('#medium').value='1';placeAt(10);computeLines();update();PA.toast(t('resetT'))};
- $('#recordBtn').onclick=record;$('#clearRec').onclick=()=>{st().set('recs',[]);st().set('disc',null);paintRecords()};
+ $('#recordBtn').onclick=record;
+ $('#tDouble').onclick=()=>{const r=dist()*2;if(r>SPAN-3.4){PA.toast(t('noFit'));return}const a=S.c[0],b=S.c[1],ux=(b.x-a.x)/(r/2),uy=(b.y-a.y)/(r/2);let nb={x:a.x+ux*r,y:a.y+uy*r};
+  if(nb.x<1.6||nb.x>SPAN-1.6||Math.abs(nb.y)>Lb.h/2/Lb.s-1.6){placeAt(r)}else S.c[1]=nb;computeLines();update()};$('#clearRec').onclick=()=>{st().set('recs',[]);st().set('disc',null);paintRecords()};
  $('#fsBtn').onclick=toggleFs;document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#labwrap').classList.contains('full'))toggleFs()});
  PA.visible(c,v=>S.on=v);
  (function loop(tm){requestAnimationFrame(loop);if(S.on&&PA.mode==='learn')drawLab(tm)})(0);
@@ -406,13 +414,13 @@ function toggleFs(){const w=$('#labwrap');const on=!w.classList.contains('full')
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){const w=$('#labwrap');if(w&&w.classList.contains('full')){w.classList.remove('full');document.body.style.overflow=''}}});
 
 /* ================= MEASURE / DISCOVER / MISSIONS ================= */
-function record(){const recs=st().get('recs',[]);const f=F();recs.push({q:S.q1*S.q2,r:+dist().toFixed(2),F:f,er:S.er});st().set('recs',recs);PA.toast(t('rec')(recs.length,PA.num(dist().toFixed(1)),PA.sciTxt(f)));paintRecords()}
+function record(){const recs=st().get('recs',[]);const f=F();recs.push({q:S.q1*S.q2,r:+dist().toFixed(2),F:f,er:S.er});st().set('recs',recs);PA.toast(t('rec')(recs.length,PA.num(dist().toFixed(1)),PA.sciTxt(f)));paintRecords();paintGuide()}
 function recordsTable(){const recs=st().get('recs',[]);if(!recs.length)return'';const th=t('th');
  return`<table><thead><tr>${th.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${recs.map((r,i)=>`<tr><td>${i+1}</td><td>${PA.num(r.q.toFixed(1))}</td><td>${PA.num(r.er)}</td><td>${PA.num(r.r.toFixed(1))}</td><td>${PA.sciTxt(r.F)}</td></tr>`).join('')}</tbody></table>`}
 function findPair(){const recs=st().get('recs',[]);for(let i=0;i<recs.length;i++)for(let j=0;j<recs.length;j++){const a=recs[i],b=recs[j];if(i===j||a.q!==b.q||a.er!==b.er||!a.F)continue;const n=b.r/a.r;if(n>1.5&&Math.abs(n-Math.round(n))<.06)return[i,j,a,b]}return null}
 function paintRecords(){$('#recTable').innerHTML=recordsTable()||`<p class="empty">${t('noRec')}</p>`;paintDiscover();checkMissions();drawGraph()}
 function paintDiscover(){const box=$('#discover');const d=st().get('disc',null);
- if(d){box.innerHTML=`<div class="discovery" style="display:block">${t('eGood')(d)}</div><div class="guide">${t('eQ2')}</div><div class="row"><button class="btn sm" data-go="sF">→ ${t('kF')}</button></div>`;return}
+ if(d){const pv=st().get('predict',null);box.innerHTML=(pv?`<div class="guide">${pv==='quarter'?t('predR'):t('predW')(guessTxt(pv))}</div>`:'')+`<div class="discovery" style="display:block">${t('eGood')(d)}</div><div class="guide">${t('eQ2')}</div><div class="row"><button class="btn sm" data-go="sF">→ ${t('kF')}</button></div>`;return}
  const p=findPair();if(!p){box.innerHTML=`<div class="guide">${t('eWait')}</div>`;return}
  const[i,j,a,b]=p;box.innerHTML=`<p>${t('eAsk')(i+1,j+1,PA.num(a.r.toFixed(1)),PA.num(b.r.toFixed(1)),Math.round(b.r/a.r))}</p><div class="ans"><input class="f" id="eIn" inputmode="decimal" placeholder="÷ ?"><button class="btn sm" id="eBtn">${PA.t('check')}</button></div><div class="res" id="eRes"></div>`;
  $('#eBtn').onclick=()=>{const v=PA.parseNum($('#eIn').value),n=Math.round(b.r/a.r),ratio=a.F/b.F;if(Math.abs(v-ratio)/ratio<.06){st().set('disc',n);paintDiscover();unlockF();checkMissions()}else{$('#eRes').className='res no';$('#eRes').textContent=t('eBad')}}}
@@ -460,7 +468,13 @@ const L={id:'coulomb',ref:'§11.1',title:{en:"Coulomb's Law",fr:'Loi de Coulomb'
  recordsTable,
  loadLab(cfg){PA.setMode('learn');Object.assign(S,{q1:cfg.q1,q2:cfg.q2,er:cfg.er});$('#q1').value=cfg.q1;$('#q2').value=cfg.q2;$('#medium').value=String(cfg.er);
   setTimeout(()=>{resizeLab();placeAt(Math.min(cfg.r,SPAN-4));computeLines();update();PA.go('sC')},60)}};
-function paintPredict(){const v=st().get('predict',null);$$('.choice').forEach(b=>b.classList.toggle('picked',b.dataset.v===v));$('#predictFb').innerHTML=v?t('fbSaved'):t('fb0')}
+const GUESS={half:'F ÷ 2',quarter:'F ÷ 4',double:'F × 2'};const guessTxt=v=>GUESS[v]||t('same');
+function paintPredict(){const v=st().get('predict',null);$$('.choice').forEach(b=>b.classList.toggle('picked',b.dataset.v===v));
+ $('#predictFb').innerHTML=v?`<p>${v==='quarter'?t('fbR'):t('fbO')(guessTxt(v))}</p><button class="btn" id="testBtn">${t('testBtn')}</button>`:t('fb0');
+ const tb=$('#testBtn');if(tb)tb.onclick=startTest}
+function startTest(){S.guideStart=st().get('recs',[]).length;L.loadLab({q1:2,q2:2,r:10,er:1});paintGuide()}
+function paintGuide(){const g=$('#labGuide');if(S.guideStart==null){g.style.display='none';return}const n=st().get('recs',[]).length-S.guideStart;g.style.display='block';g.innerHTML=n<=0?t('testGuide'):n===1?t('g1'):t('g2');
+ $('#recordBtn').style.boxShadow=n<2?'0 0 0 4px rgba(255,209,102,.35)':'';$('#tDouble').classList.toggle('on',n===1)}
 
 PA.register(L);
 window.COULOMB_ENGINE={K,Fmag,Fsigned}; // exposed for automated tests

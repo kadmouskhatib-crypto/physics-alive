@@ -1,1 +1,1 @@
-window.addEventListener('DOMContentLoaded',()=>PA.start('coulomb'));
+window.addEventListener('DOMContentLoaded',()=>PA.start(PA.pickLesson()));

@@ -30,7 +30,8 @@ a{color:var(--accent)}
 .brand{font-weight:800;white-space:nowrap;display:flex;align-items:center;gap:8px}
 .brand i{width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--pos),var(--accent),var(--neg),var(--pos));display:inline-block;box-shadow:0 0 14px #ffd16655}
 .brand span{color:var(--accent)}
-.crumb{color:var(--muted);font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.crumb{font-size:.86rem;font-weight:600;max-width:46vw;min-width:0;overflow:hidden;text-overflow:ellipsis;background:var(--card)}
+@media(max-width:420px){.brand{font-size:0}.brand i{font-size:1rem}}
 .sp{flex:1}
 .ib{border:1px solid var(--line);background:var(--card);border-radius:12px;height:40px;min-width:40px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
 .ib.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}

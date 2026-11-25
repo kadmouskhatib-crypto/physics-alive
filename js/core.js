@@ -131,7 +131,7 @@ function importProgress(e){const f=e.target.files[0];if(!f)return;f.text().then(
 let size='phone';
 function openExp(){$('#expLessons').innerHTML=Object.values(PA.allFormulaLessons()).map(l=>`<label class="opt"><input type="checkbox" value="${l.id}" checked> ${PA.L(l.title)} <span class="pill">${l.ref}</span></label>`).join('');$('#exp').classList.add('open')}
 PA.openExp=openExp;
-PA.allFormulaLessons=()=>({[PA.lesson.id]:PA.lesson,...(PA.lesson.related||{})});
+PA.allFormulaLessons=()=>{const o={};Object.values(PA.lessons).forEach(l=>Object.assign(o,l.related||{}));Object.assign(o,PA.lessons);return o};
 function buildPdf(){const ids=$$('#expLessons input:checked').map(i=>i.value);if(!ids.length){PA.toast(PA.t('pick'));return}
  const P=$('#print'),all=PA.allFormulaLessons();P.dir=UI[PA.lang].dir;P.innerHTML=`<h1>${PA.t('booklet')}</h1><div class="meta">Physics Alive · ${new Date().toLocaleDateString(PA.lang)}</div>`;
  ids.forEach(id=>{const l=all[id];const sec=document.createElement('div');sec.innerHTML=`<h2>${PA.L(l.title)} <span class="meta">${l.ref}</span></h2>`;
@@ -151,7 +151,10 @@ async function paintOffline(){const d=$('#offDot'),t=$('#offTxt');if(!d)return;l
 
 /* ---------- boot ---------- */
 PA.register=L=>{PA.lessons[L.id]=L};
-PA.start=id=>{migrateV1();PA.lesson=PA.lessons[id];const L=PA.lesson;
+PA.pickLesson=()=>{const h=location.hash.slice(1);if(PA.lessons[h])return h;const l=raw.get('lesson','coulomb');return PA.lessons[l]?l:'coulomb'};
+PA.start=id=>{migrateV1();PA.lesson=PA.lessons[id];const L=PA.lesson;raw.set('lesson',id);if(location.hash.slice(1)!==id)history.replaceState(null,'','#'+id);
+ const ls=$('#lessonSel');ls.onchange=()=>{raw.set('lesson',ls.value);location.hash=ls.value;location.reload()};
+ window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(PA.lessons[h]&&h!==PA.lesson.id){raw.set('lesson',h);location.reload()}});
  const ps=document.createElement('style');ps.id='pageSize';document.head.appendChild(ps);
  $('#hlBtn').onclick=()=>setHL(!document.body.classList.contains('hlmode'));$('#hlDone').onclick=()=>setHL(false);
  $$('.sw').forEach(s=>s.onclick=()=>{hlColor=s.dataset.c;$$('.sw').forEach(x=>x.classList.toggle('sel',x===s));applySel()});
@@ -164,7 +167,7 @@ PA.start=id=>{migrateV1();PA.lesson=PA.lessons[id];const L=PA.lesson;
  L.mount($('#m-learn'));applyLang(false);PA.setMode(PA.mode);
  if('serviceWorker'in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))navigator.serviceWorker.register('sw.js').catch(()=>{})};
 function applyLang(keepScroll){const y=scrollY;document.documentElement.lang=PA.lang;document.documentElement.dir=UI[PA.lang].dir;
- $('#crumb').textContent='· '+PA.L(PA.lesson.title);document.title='Physics Alive · '+PA.L(PA.lesson.title);
+ $('#lessonSel').innerHTML=Object.values(PA.lessons).map(l=>`<option value="${l.id}" ${l.id===PA.lesson.id?'selected':''}>${l.ref} · ${PA.L(l.title)}</option>`).join('');document.title='Physics Alive · '+PA.L(PA.lesson.title);
  $$('[data-t]').forEach(el=>{const v=PA.t(el.dataset.t);if(typeof v==='string')el.innerHTML=v});
  paintModes();PA.lesson.onLang();renderTextbook();renderPractice();if(PA.mode==='notebook')renderNotebook();restoreHL();if(keepScroll)scrollTo(0,y)}
 })();

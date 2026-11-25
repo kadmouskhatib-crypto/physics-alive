@@ -224,3 +224,7 @@ body.hlmode #hlBar{display:flex}
   #print table{font-size:.8em}
   #print ul{padding-inline-start:1.1em;margin:.3em 0}
 }
+
+/* numbers and units always read left-to-right, also in Arabic */
+.ro b,#roR,#roF,#roFx,#Ev,#Av,#thv,#Rv,#qv,#q1v,#q2v{direction:ltr;unicode-bidi:isolate}
+[dir=rtl] .ro b{text-align:right}

@@ -61,10 +61,10 @@ function applySel(){if(!document.body.classList.contains('hlmode'))return;const 
 function renderTextbook(){const L=PA.lesson,root=$('#m-textbook');const html=PA.L(L.textbook)||'';
  root.innerHTML=`<div class="wrap"><article class="tb">${PA.mathHTML(html)}
   <div class="fgrid" style="margin-top:18px">${formulaCards()}</div>
-  <div class="vault" id="vault"><h3>${PA.t('vaultT')}</h3><p class="muted small">${PA.t('vaultLead')}</p>
-   <div class="ans"><input class="f" type="password" id="vpass" placeholder="${PA.t('pass')}" autocomplete="off"><button class="btn sm" id="vgo">${PA.t('unlock')}</button></div><div id="vbody"></div></div>
+  ${L.vault?`<div class="vault" id="vault"><h3>${PA.t('vaultT')}</h3><p class="muted small">${PA.t('vaultLead')}</p>
+   <div class="ans"><input class="f" type="password" id="vpass" placeholder="${PA.t('pass')}" autocomplete="off"><button class="btn sm" id="vgo">${PA.t('unlock')}</button></div><div id="vbody"></div></div>`:''}
  </article></div>`;paintFormulaMath(root);
- $('#vgo').onclick=unlock;$('#vpass').onkeydown=e=>{if(e.key==='Enter')unlock()};if(PA._vault)showVault()}
+ if(!L.vault)return;$('#vgo').onclick=unlock;$('#vpass').onkeydown=e=>{if(e.key==='Enter')unlock()};if(PA._vault)showVault()}
 const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 async function unlock(){const p=$('#vpass').value;if(!p)return;try{const j=await (await fetch(PA.lesson.vault)).json();
   const km=await crypto.subtle.importKey('raw',new TextEncoder().encode(p),'PBKDF2',false,['deriveKey']);
